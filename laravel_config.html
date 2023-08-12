@@ -1,0 +1,149 @@
+sudo apt update
+
+sudo apt install apache2 -y
+
+sudo ufw enable
+
+sudo ufw app info "Apache Full"
+
+sudo ufw allow "Apache Full"
+
+ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'
+
+sudo apt install curl
+
+curl http://icanhazip.com
+
+
+history > ~/index.html
+<!-- install mysql server -->
+
+
+sudo apt install mysql-server -y
+
+
+sudo mysql
+
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'clovis12';
+
+
+sudo mysql_secure_installation
+
+
+mysql -u root -p
+<!-- install php -->
+
+sudo apt install php libapache2-mod-php php-mysql
+
+sudo vim /etc/apache2/mods-enabled/dir.conf
+<IfModule mod_dir.c>
+      DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
+</IfModule>
+
+sudo systemctl restart apache2
+
+sudo systemctl status apache2
+
+
+sudo apt search php- | less > ~/php.html
+
+
+sudo apt install php libapache2-mod-php php-mysql
+
+sudo vim /etc/apache2/mods-enabled/dir.conf
+
+sudo systemctl restart apache2
+
+sudo systemctl status apache2
+
+sudo apt search php- | less
+
+sudo apt search php- | less > ~/php.html
+
+sudo apt show php-cli
+
+sudo apt show php-xml
+
+sudo apt show php-fileinfo
+
+sudo apt show php-common
+
+sudo apt show php-common
+
+
+sudo apt show php-fpm
+
+
+
+sudo apt-get install -y unzip zip tree php-fpm php-mysql php-common php-xml php-curl php-mbstring php-bcmath
+
+php --ini
+<!-- install composer -->
+
+curl https://getcomposer.org/installer -o /tmp/composer-setup.php
+
+
+composer create-project laravel/laravel --prefer-dist application
+
+cd application/
+
+composer install laravel/ui
+
+composer req laravel/ui
+
+composer req laravelcollective/html
+
+composer req livewire/livewire
+
+
+
+sudo mv application/ /var/www/application
+
+sudo chown -R $USER:$USER /var/www/application/
+
+cd /var/www/application/
+
+chown -R www-data.www-data storage/
+
+sudo chown -R www-data.www-data storage/
+
+sudo chown -R www-data.www-data bootstrap/cache/
+
+sudo vim /etc/apache2/sites-available/application.conf
+
+sudo a2ensite application.conf
+
+sudo a2dissite 000-default.conf
+
+sudo apache2ctl configtest
+
+sudo systemctl restart apache2
+
+sudo apt install phpmyadmin php-mbstring php-gettext
+
+sudo apt-get install phpmyadmin
+
+sudo phpenmod mbstring
+
+sudo restart apache2
+
+sudo systemctl restart apache2
+
+sudo apt update
+
+sudo apt install phpmyadmin php-mbstring php-gettext
+
+sudo apt install phpmyadmin php-mbstring
+
+sudo phpenmod mbstring
+
+sudo systemctl restart apache2
+
+sudo systemctl enable apache2
+
+sud mysql
+
+sudo mysql
+
+mysql -u clovis -p

@@ -1,0 +1,74 @@
+sudo adduser clovis 
+
+sudo usermod -aG sudo clovis 
+
+sudo apt-get update -y 
+
+sudo apt-get install -y \
+tree \
+zip \
+mysql-server \
+unzip \
+git \
+php8.1-fpm \
+php8.1-mysql \
+nginx  \
+php8.1-xml \
+php8.1-mbstring \
+php8.1-bcmath  \
+php8.1-common  \
+php8.1-ctype \
+php8.1-curl 
+
+
+curl https://getcomposer.org/installer -o /tmp/composer-setup.php 
+
+sudo php /tmp/composer-setup.php install --install-dir=/usr/local/bin --filename=composer 
+
+composer 
+cd ~ 
+
+mkdir application 
+cd application 
+
+composer create-project --prefer-dist laravel/laravel .
+
+composer req laravelcollective/html 
+composer req livewire/livewire 
+composer req laravel/ui 
+php artisan ui bootstrap --auth 
+php artisan make:model Article -m 
+php artisan make:model Form -m 
+php artisan make:controller PagesController 
+
+cd resources/views 
+mkdir dashboard articles pages partiarls forms
+
+mv home.blade.php dashboard 
+mv welcome.blade.php  pages 
+cd pages 
+mv welcome.blade.php index.blade.php 
+touch about.blade.php policy.blade.php 
+cd .. 
+cd  articles 
+touch index.blade.php create.blade.php show.blade.php edit.blade.php  
+cd .. 
+cd partiarls 
+touch navbar.blade.php footer.blade.php search.blade.php  
+cd .. 
+cd forms 
+touch index.blade.php create.blade.php show.blade.php edit.blade.php
+
+cd ../../.. 
+cd ~
+sudo touch /etc/nginx/sites-available/application
+sudo chown -R $USER:$USER /etc/nginx/sites-available/application
+
+
+sudo nginx -t
+sudo ln -s /etc/nginx/sites-available/application /etc/nginx/sites-enabled/
+sudo chown -R www-data.www-data /var/www/application/storage/
+sudo chown -R www-data.www-data /var/www/application/bootstrap/cache/
+
+sudo unlink /etc/nginx/sites-enabled/default
+sudo systemctl reload nginx

@@ -1,0 +1,63 @@
+
+sudo apt-get update -y
+sudo apt-get install -y \
+tree \
+git \
+nginx \
+mysql-server \
+unzip \
+zip \
+php8.1-fpm \
+php8.1-mysql \
+php8.1-common \
+php8.1-mbstring \
+php8.1-bcmath \
+php8.1-curl \
+php8.1-xml
+curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
+sudo php /tmp/composer-setup.php install --install-dir=/usr/local/bin --filename=composer
+composer
+mkdir application 
+cd ~/application
+
+composer create-project --prefer-dist laravel/laravel .
+
+composer req laravel/ui
+php artisan ui bootstrap --auth
+
+composer require laravelcollective/html
+
+composer require livewire/livewire
+
+cd ~
+sudo touch /etc/apache2/sites-available/application.conf
+sudo chown -R $USER:$USER /etc/nginx/sites-available/application.conf
+
+cat ~/nginx.html  /etc/nginx/sites-available/application/
+
+cd ~
+sudo ln -s /etc/nginx/sites-available/application /etc/nginx/sites-enabled/
+sudo unlink /etc/nginx/sites-enabled/default/
+
+cd ~
+sudo mv ~/application /var/www/application/
+
+cd ~
+sudo chown -R www-data.www-data /var/www/application/storage/
+sudo chown -R www-data.www-data /var/www/application/bootstrap/cache/
+
+sudo systemctl enable nginx
+sudo systemctl reload nginx
+
+
+
+
+sudo mysql ;
+
+CREATE DATABASE cameroon;
+
+CREATE USER 'clovis'@'localhost' IDENTIFIED WITH mysql_native_password BY 'clovis12';
+
+GRANT ALL PRIVILEGES ON cameroon.* TO 'clovis'@'localhost' WITH GRANT OPTION;
+
+FLUSH PRIVILEGES;

@@ -1,0 +1,57 @@
+
+
+<!-- install nginx -->
+
+mkdir .ssh
+touch authorized_keys
+  
+vim authorized_keys
+chmod 600 authorized_keys
+chmod 700 .ssh/
+mv authorized_keys .ssh/
+
+sudo apt update -y
+
+sudo apt install nginx -y
+
+sudo systemctl enable nginx
+sudo apt install mysql-server
+
+sudo mysql
+sudo mysql_secure_installation -y
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'clovis12';
+sudo mysql_secure_installation
+
+mysql -u root -p
+
+sudo apt install php-fpm php-mysql -y
+sudo apt install php-mbstring php-xml php-bcmath php-cli unzip -y
+sudo apt install -y php8.1-ctype php8.1-fileinfo php8.1-mbstring php8.1-curl php8.1-tokenizer php8.1-xml -y
+
+curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
+sudo php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
+
+mkdir application
+cd application
+
+composer create-project --prefer-dist laravel/laravel .
+composer require livewire/livewire
+composer require spatie/laravel-html
+composer req laravel/ui 
+php artisan ui bootstrap --auth
+sudo mv dabaclovis/ /var/www/dabaclovis
+cd /var/www/dabaclovis/
+
+sudo vim /etc/nginx/sites-available/application
+
+sudo nginx -t
+sudo ln -s /etc/nginx/sites-available/application /etc/nginx/sites-enabled/
+sudo chown -R www-data.www-data /var/www/application/storage/
+sudo chown -R www-data.www-data /var/www/application/bootstrap/cache/
+
+sudo unlink /etc/nginx/sites-enabled/default
+sudo ufw enable 
+sudo ufw allow OpenSSH 
+sudo ufw allow "Nginx Full"
+sudo systemctl enable nginx 
+sudo systemctl reload nginx

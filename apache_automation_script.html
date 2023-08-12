@@ -1,0 +1,78 @@
+
+sudo apt-get update -y
+sudo apt-get install -y \
+tree \
+git \
+mysql-server \
+unzip \
+zip \
+php8.1 \
+php8.1-mysql \
+php8.1-common \
+php8.1-mbstring \
+php8.1-bcmath \
+php8.1-curl \
+php8.1-xml
+sudo apt-get install apache2 -y
+curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
+sudo php /tmp/composer-setup.php install --install-dir=/usr/local/bin --filename=composer
+composer
+cd ~
+mkdir application 
+cd ~/application
+
+composer create-project --prefer-dist laravel/laravel .
+
+composer req laravel/ui
+php artisan ui bootstrap --auth
+
+composer require laravelcollective/html
+
+composer require livewire/livewire
+
+cd resources/views 
+mkdir pages articles dashboard 
+cd pages 
+touch index.blade.php policy.blade.php about.blade.php resume.blade.php 
+cd ..
+cd articles
+touch index.blade.php create.blade.php show.blade.php edit.blade.php search.blade.php 
+cd ..
+cd dashboard
+touch setting.blade.php
+cd ..
+mv home.blade.php index.blade.php 
+
+cd ../..
+php artisan make:model Article -mc 
+php artisan make:controller PagesController 
+
+cd ~
+sudo touch /etc/apache2/sites-available/application.conf
+sudo chown -R $USER:$USER /etc/apache2/sites-available/application.conf
+
+sudo a2ensite application.conf
+
+sudo a2dissite 000-default
+
+sudo apache2ctl configtest
+
+cd ~
+sudo chown -R www-data.www-data /var/www/application/storage/
+sudo chown -R www-data.www-data /var/www/application/bootstrap/cache/
+
+sudo systemctl enable apache2
+sudo systemctl reload apache2
+
+
+
+
+sudo mysql ;
+
+CREATE DATABASE cameroon;
+
+CREATE USER 'clovis'@'localhost' IDENTIFIED WITH mysql_native_password BY 'clovis12';
+
+GRANT ALL PRIVILEGES ON cameroon.* TO 'clovis'@'localhost' WITH GRANT OPTION;
+
+FLUSH PRIVILEGES;

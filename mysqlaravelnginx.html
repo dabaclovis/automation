@@ -1,0 +1,74 @@
+sudo adduser name 
+su - name 
+mkdir .ssh
+touch authorized_keys
+sudo apt update -y
+
+chmod 600 authorized_keys
+chmod 700 .ssh/
+mv authorized_keys .ssh/
+
+vim .ssh/authorized_keys
+<!-- install nginx -->
+sudo apt install nginx -y 
+sudo systemctl enable nginx 
+<!-- install mysql -->
+sudo apt install mysql-server
+sudo mysql
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY "clovis12";
+create user 'name'@'%' IDENTIFIED WITH BY mysql_native_password BY 'password';
+mysql -u root -p
+sudo mysql_secure_installation
+mysql -u root -p
+<!-- install php -->
+sudo apt install php8.1-fpm php-mysql -y
+sudo apt update
+sudo apt-get install -y php8.1-mbstring php8.1-xml php8.1-bcmath php8.1-cli php8.1-curl php8.1-common
+sudo apt install -y php8.1-common php8.1-mbstring php8.1-curl php8.1-xml
+
+<!-- install composer -->
+curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
+sudo php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
+composer
+mysql -u root -p
+mysql -u principal -p
+mysql -u root -p
+mysql -u principal -p
+mysql -u root -p
+composer
+php --ini
+php --version
+composer create-project --prefer-dist laravel/laravel application
+cd school/
+mysql -u root -p
+sudo mv ~/school/ /var/www/school
+sudo ps aux
+sudo ps aux |grep nginx
+cd /var/www/school/
+cd /var/www/
+cd school/
+cd storage/
+cd bootstrap/cache/
+sudo touch /etc/nginx/sites-available/application
+sudo touch school
+sudo chown -R clovis:clovis school
+cd /var/www/school
+sudo ln -s /etc/nginx/sites-available/application /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo unlink /etc/nginx/sites-enabled/default
+
+<!-- relinking -->
+sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+
+sudo systemctl reload nginx
+php --version
+sudo systemctl restart nginx
+cd /var/www/project_directory/storage/logs/laravel.log
+sudo chown -R www-data.www-data /var/www/school/storage
+sudo chown -R www-data.www-data /var/www/school/bootstrap/cache
+sudo systemctl reload nginx
+
+
+<!-- docker -->
+RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install -j$(nproc) opcache pdo_mysql intl xml soap
