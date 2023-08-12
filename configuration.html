@@ -1,0 +1,218 @@
+01/02/2023
+SONAR QUBE
+java is required to run sonar qube
+
+Hardware requirement
+Minimum of 2GB of RAM
+
+apt update -y
+
+amazon-linux-extras install package
+
+
+got to cd /opt
+install java
+apt install or yum install java-1.8.0-openjdk
+
+check java version
+aptinstall -y wget unzip
+
+wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.8.zip
+
+unzip sonarqube-7.8.zip
+
+
+
+//CREATE USER
+
+useradd sonar
+visudo
+configure sonar with no password
+
+sonar ALL=(ALL) NOPASSWD:ALL
+
+change ownsership of sonar folder
+chmod -R 775 /opt/sonarqube-7.8
+chown -R sonar:sonar /opt/sonarqube-7.8
+
+switch to sonar user account
+
+su - sonar
+
+sh sonar.sh status
+
+
+
+
+sh sonar.sh start
+
+-----------------------------------
+++++++++++++++++++++++
+++++++++++++++++++++++++
+
+yum install update -y
+yum update -y
+install java in the /opt
+download sonar qube
+unzip sonar file
+
+create user sonar
+add user under root account
+su - sonar
+move to opt/sonarqube-7.8/bin/linux
+ls
+start sonar
+sh sonar.sh start
+sh sonar.sh status
+default port for sonar is 9000
+
+change port number for sonar
+
+in the conf folder
+sonar.property folder
+
+in the maven project pom.xml
+add properties
+<properties>
+    <sonar.host.url>http://ipaddress of sonar server:port</sonar.host.url>
+    <sonar.login>username</sonar.login>
+    <sonar.password>password</sonar.password>
+    inside of username and password
+    <sonar.login>token generate </sonar.login>
+</properties>
+
+after that
+mvn sonar:sonar
+
+don't use password and username
+config sonar token in
+profile
+my account
+security
+generate token
+
+
+
++++++++++++++
+THen build project using "mvn sonar:sonar" goal
+NB:
+For each language, sonar qube has provided on quality profile with set of rules
+
+Quality profile means set of rules to perform code review
+
+we can create our own quality profile base on requirement
+
+create one quality profile
+
+Name sbi_project
+language java
+parent none
+
+NB* we can make our quality profile as default one wthen it will be applicable for all the projects which get reviewed
+under this sonar server
+
+NB* If we have any common ruleset for all projects then we can create one quality profile and we can use that as parent
+quality profile for other projects
+
+we can configure quality profile to specific project
+
+
+-click on the project name
+-administration
+-click on quality profile
+-select profile required
+
+
+
+
+
+
+
+
+
+-------------------------------------
++++++++++++++++++++++
+
+sonar qube
+sonar qube is a continuous code quality checking tool
+we can do code review using sonar qube
+
+
+what is code coverage and code review in sonar qube
+
+code coverage: How many lines of source code is tested by unit test cases
+NB: industry standard code coverage is 80%
+
+code review: Checking code convention
+
+sonar qube is an open source software quality management toool
+it will continuously analyzed and measure quality of the source code
+it will generate code review report in html or pdf formate
+it's a web base tool and support 29 programing languages
+it support multiple OS platform
+it support multiple databases(mysql, oracle, sql server, postgress sql...)
+
+it supports multiple browsers
+
+it will identify below category of issues in project source code
+
+=>duplicate code
+coding standard
+unit test
+code coverage
+complex code
+commented code
+potential bugs
+
+
+initially developed for java projects.
+
+
+
++++++++++++++++++++
+quality gates
+
+
+represent set of metric to identify project quality is passed or failed
+
+every project quality gate should be passed
+in sonar we have default quality gate
+if required, we can create our own quality gate also
+
+
+NB*i if project quality gate is failed then we should not accept that code for deployment
++++++++++++++++++++++++
+if project is having sonar issues, then development team is responsible to fix those issues
+
+as a devops engineer, we will perform code review and sent the code review report to the development
+(url of sonar dashboard to development team)
+
+-----------------------------
+sonar with jenkins integration
+++++++++++++++++++++++
+manage jenkins
+available
+sonar qube scanner plugin
+install it
++++++++++++++++++++++++++
+
+manage jenkins
+configure system
+sonar qube server
+add sonar qube
+give sonar qube server url and add token
+(token should be added as secret text)
+
+select jenkins job
+configure
+under post build action
+sonarqube analysis with maven
+
+26 sonarqube code review tool
+++++++++++++++++++++++++
+free screen recorders
+1)xbox
+2)geforce experience
+3)zoom
+4)active presenter
+5)obs
